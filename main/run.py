@@ -28,10 +28,11 @@ def run():
     pi.build(input_shape=(1, 60))
     pi.summary()
     score = 0.0  # 计分
-    print_interval = 20  # 打印间隔
+    print_interval = 100  # 打印间隔
     returns = []
     timespan = []
-    for n_epi in range(2000):
+    for n_epi in range(200):
+        score = 0.0  # 计分
         s = env.reset() #返回初始状态
         with tf.GradientTape(persistent=True) as tape:
             for i in range(60):
@@ -46,7 +47,6 @@ def run():
                 np_w, np_b = env.preprocess(is_zeros, min_tf)
                 np_w = tf.constant(np_w, dtype=tf.float32)
                 np_b = tf.constant(np_b, dtype=tf.float32)
-
                 # print('归0')
                 out = tf.matmul(out, np_w) + np_b
                 # print(out)
@@ -69,21 +69,20 @@ def run():
                 a = int(a)  # Tensor转数字
                 # print('第{}次,选择动作:{}'.format(i, a))
                 new_state, r, done = env.step(a)
-                print('r:{}'.format(r))
-                print('a:{}'.format(a))
+                # print('r:{}'.format(r))
+                # print('a:{}'.format(a))
                 pi.put_data((r, tf.math.log(out[0][a])))
                 s = new_state
                 score = score + r
-
                 if done:
-                    print('最大完成时间为:{}'.format(np.max(env.slot_state)))
                     print('第{}次  done!!!'.format(n_epi))
+                    print('总的分数奖励为:{}'.format(score))
+                    print('最大完成时间为:{}'.format(np.max(env.slot_state)))
                     timespan.append(np.max(env.slot_state))
                     break
-
             pi.train_net(tape=tape)
         del tape
-        if n_epi%10 == 0:
+        if n_epi%print_interval == 0:
             env.network.save_schedule_result(n_epi)
         print('===================================================================')
 

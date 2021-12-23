@@ -1,0 +1,286 @@
+{
+    "0": [
+        {
+            "tt_flow": 0,
+            "start_slot": 0.0,
+            "end_slot": 63.0
+        },
+        {
+            "tt_flow": 14,
+            "start_slot": 64.0,
+            "end_slot": 96.0
+        },
+        {
+            "tt_flow": 19,
+            "start_slot": 97.0,
+            "end_slot": 147.0
+        },
+        {
+            "tt_flow": 8,
+            "start_slot": 148.0,
+            "end_slot": 205.0
+        }
+    ],
+    "1": [],
+    "2": [
+        {
+            "tt_flow": 1,
+            "start_slot": 0.0,
+            "end_slot": 50.0
+        },
+        {
+            "tt_flow": 5,
+            "start_slot": 51.0,
+            "end_slot": 106.0
+        },
+        {
+            "tt_flow": 18,
+            "start_slot": 107.0,
+            "end_slot": 139.0
+        },
+        {
+            "tt_flow": 12,
+            "start_slot": 140.0,
+            "end_slot": 198.0
+        }
+    ],
+    "3": [
+        {
+            "tt_flow": 6,
+            "start_slot": 0.0,
+            "end_slot": 34.0
+        },
+        {
+            "tt_flow": 15,
+            "start_slot": 35.0,
+            "end_slot": 67.0
+        },
+        {
+            "tt_flow": 7,
+            "start_slot": 68.0,
+            "end_slot": 111.0
+        }
+    ],
+    "4": [
+        {
+            "tt_flow": 10,
+            "start_slot": 0.0,
+            "end_slot": 35.0
+        },
+        {
+            "tt_flow": 11,
+            "start_slot": 36.0,
+            "end_slot": 99.0
+        }
+    ],
+    "5": [
+        {
+            "tt_flow": 2,
+            "start_slot": 0.0,
+            "end_slot": 41.0
+        },
+        {
+            "tt_flow": 4,
+            "start_slot": 42.0,
+            "end_slot": 76.0
+        }
+    ],
+    "6": [
+        {
+            "tt_flow": 9,
+            "start_slot": 0.0,
+            "end_slot": 42.0
+        },
+        {
+            "tt_flow": 16,
+            "start_slot": 43.0,
+            "end_slot": 100.0
+        },
+        {
+            "tt_flow": 17,
+            "start_slot": 101.0,
+            "end_slot": 148.0
+        }
+    ],
+    "7": [
+        {
+            "tt_flow": 13,
+            "start_slot": 0.0,
+            "end_slot": 34.0
+        },
+        {
+            "tt_flow": 3,
+            "start_slot": 35.0,
+            "end_slot": 83.0
+        }
+    ],
+    "8": [
+        {
+            "tt_flow": 6,
+            "start_slot": 35.0,
+            "end_slot": 69.0
+        },
+        {
+            "tt_flow": 2,
+            "start_slot": 128.0,
+            "end_slot": 169.0
+        }
+    ],
+    "9": [
+        {
+            "tt_flow": 1,
+            "start_slot": 51.0,
+            "end_slot": 101.0
+        },
+        {
+            "tt_flow": 10,
+            "start_slot": 222.0,
+            "end_slot": 257.0
+        },
+        {
+            "tt_flow": 14,
+            "start_slot": 258.0,
+            "end_slot": 290.0
+        },
+        {
+            "tt_flow": 17,
+            "start_slot": 418.0,
+            "end_slot": 465.0
+        }
+    ],
+    "10": [
+        {
+            "tt_flow": 9,
+            "start_slot": 86.0,
+            "end_slot": 128.0
+        },
+        {
+            "tt_flow": 16,
+            "start_slot": 186.0,
+            "end_slot": 243.0
+        },
+        {
+            "tt_flow": 3,
+            "start_slot": 306.0,
+            "end_slot": 354.0
+        }
+    ],
+    "11": [
+        {
+            "tt_flow": 0,
+            "start_slot": 64.0,
+            "end_slot": 127.0
+        },
+        {
+            "tt_flow": 11,
+            "start_slot": 370.0,
+            "end_slot": 433.0
+        }
+    ],
+    "12": [
+        {
+            "tt_flow": 19,
+            "start_slot": 148.0,
+            "end_slot": 198.0
+        },
+        {
+            "tt_flow": 5,
+            "start_slot": 199.0,
+            "end_slot": 254.0
+        },
+        {
+            "tt_flow": 8,
+            "start_slot": 255.0,
+            "end_slot": 312.0
+        },
+        {
+            "tt_flow": 18,
+            "start_slot": 313.0,
+            "end_slot": 345.0
+        },
+        {
+            "tt_flow": 7,
+            "start_slot": 346.0,
+            "end_slot": 389.0
+        }
+    ],
+    "13": [],
+    "14": [
+        {
+            "tt_flow": 19,
+            "start_slot": 199.0,
+            "end_slot": 249.0
+        }
+    ],
+    "15": [
+        {
+            "tt_flow": 5,
+            "start_slot": 255.0,
+            "end_slot": 310.0
+        }
+    ],
+    "16": [
+        {
+            "tt_flow": 4,
+            "start_slot": 77.0,
+            "end_slot": 111.0
+        },
+        {
+            "tt_flow": 8,
+            "start_slot": 313.0,
+            "end_slot": 370.0
+        },
+        {
+            "tt_flow": 18,
+            "start_slot": 371.0,
+            "end_slot": 403.0
+        },
+        {
+            "tt_flow": 7,
+            "start_slot": 404.0,
+            "end_slot": 447.0
+        }
+    ],
+    "17": [
+        {
+            "tt_flow": 9,
+            "start_slot": 43.0,
+            "end_slot": 85.0
+        },
+        {
+            "tt_flow": 2,
+            "start_slot": 86.0,
+            "end_slot": 127.0
+        },
+        {
+            "tt_flow": 16,
+            "start_slot": 128.0,
+            "end_slot": 185.0
+        },
+        {
+            "tt_flow": 10,
+            "start_slot": 186.0,
+            "end_slot": 221.0
+        },
+        {
+            "tt_flow": 13,
+            "start_slot": 222.0,
+            "end_slot": 256.0
+        },
+        {
+            "tt_flow": 3,
+            "start_slot": 257.0,
+            "end_slot": 305.0
+        },
+        {
+            "tt_flow": 11,
+            "start_slot": 306.0,
+            "end_slot": 369.0
+        },
+        {
+            "tt_flow": 17,
+            "start_slot": 370.0,
+            "end_slot": 417.0
+        }
+    ]
+}

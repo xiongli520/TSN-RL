@@ -321,10 +321,10 @@ class SimpleNetwork:
         schedule_result = {}
         for edge in self.edges.values():
             schedule_result[edge.id] = edge.time_slot_state
-        if not os.path.exists('../result'):
-            os.makedirs('../result')
+        if not os.path.exists('../result/schedule_result/'):
+            os.makedirs('../result/schedule_result/')
         if schedule_result:
-            json.dump(schedule_result, open('../result/schedule_result_{}.json'.format(i), "w"), indent=4)
+            json.dump(schedule_result, open('../result/schedule_result/schedule_result_{}.json'.format(i), "w"), indent=4)
 
 
 

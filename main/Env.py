@@ -151,6 +151,19 @@ class Env:
         self.pre_util = cur_util
         return r
 
+    def get_reward_fast2(self):
+        '''
+        通过执行动作a后，得到的状态，从而得到单步奖励
+        与fast方法不同是，不考虑已调度的消息这个因素，只看分母的目前的最大make span
+        分子为所有流的总共的处理时间
+        :return: 
+        '''
+        c_max_cur, process_length = self.get_Cmax_Process()
+        cur_util = self.all_length/(self.network.edge_num * c_max_cur)
+        r = cur_util - self.pre_util
+        self.pre_util = cur_util
+        return r
+
 
     def get_Cmax_Process(self):
         '''

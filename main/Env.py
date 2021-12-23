@@ -21,6 +21,9 @@ class Env:
         self.tt_route_matrix = np.zeros(shape=[self.network.tt_num, self.max_hop])
         #tt流周期信息矩阵
         self.tt_period_matrix = np.zeros(shape=[self.network.tt_num, self.max_hop])
+        #tt流总的处理时间
+        self.all_length = 0
+
 
     def reset(self):
         '''
@@ -41,6 +44,9 @@ class Env:
                 self.tt_schedule_matrix[i][j] = self.network.tt_flow[str(i)]['pkt_len']
                 self.tt_route_matrix[i][j] = flow_rout[j]
                 self.tt_period_matrix[i][j] = flow_period
+
+        # tt流总的处理时间
+        self.all_length = np.sum(self.tt_schedule_matrix)
 
         state = self.output_state()
         print('reset success!!!')
@@ -108,7 +114,8 @@ class Env:
         self.slot_state[a] = self.network.edges[edge_index].current_slot
 
         if result == 'success':
-            r = self.get_reward_fast()
+            # r = self.get_reward_fast()
+            r = self.get_reward_fast2()
             self.tt_schedule_matrix[a][index] = 0
             new_state = self.output_state()
             done = self.is_done()

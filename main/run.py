@@ -1,4 +1,4 @@
-from main.Agent import *
+from main.Agent_PG import *
 from main.param import *
 from main.Env import *
 from Data.SimpleNetwork import *

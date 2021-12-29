@@ -19,5 +19,6 @@ parser.add_argument('--pkt_len_max', type=int, default=50, help='pkt length max'
 parser.add_argument('--learning_rate', type=float, default=0.001, help='learning rate')
 parser.add_argument('--gamma', type=float, default=0.98, help='gamma')
 
+parser.add_argument('--action_size', type=int, default=16, help='action size')
 
 args = parser.parse_args()

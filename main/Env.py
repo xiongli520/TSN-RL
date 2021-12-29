@@ -17,6 +17,8 @@ class Env:
         self.slot_state = np.full(shape=self.network.tt_num, fill_value=-1.0)
         #tt流的调度状态矩阵
         self.tt_schedule_matrix = np.zeros(shape=[self.network.tt_num, self.max_hop])
+        # tt流的调度状态矩阵
+        self.origin_tt_schedule_matrix = np.zeros(shape=[self.network.tt_num, self.max_hop])
         #tt流路由信息矩阵
         self.tt_route_matrix = np.zeros(shape=[self.network.tt_num, self.max_hop])
         #tt流周期信息矩阵
@@ -38,11 +40,12 @@ class Env:
         #初始化tt流的调度状态矩阵
         for i in range(self.network.tt_num):
             hop = len(self.network.tt_flow[str(i)]['edge_path'])
-            flow_rout = self.network.tt_flow[str(i)]['edge_path']
+            flow_route = self.network.tt_flow[str(i)]['edge_path']
             flow_period = self.network.tt_flow[str(i)]['cycle']
             for j in range(hop):
                 self.tt_schedule_matrix[i][j] = self.network.tt_flow[str(i)]['pkt_len']
-                self.tt_route_matrix[i][j] = flow_rout[j]
+                self.origin_tt_schedule_matrix[i][j] = self.network.tt_flow[str(i)]['pkt_len']
+                self.tt_route_matrix[i][j] = flow_route[j]
                 self.tt_period_matrix[i][j] = flow_period
 
         # tt流总的处理时间
@@ -100,7 +103,7 @@ class Env:
         else:
             return [False]
 
-    def step(self, a):
+    def step(self, action):
         '''
         输入动作，得到之后的状态，奖励等
         :param a: 
@@ -108,6 +111,8 @@ class Env:
         '''
         # 判断是否是一个有效的动作
         # 确定使用链路序号
+
+        a = self.get_flow_id(action)
         index, edge_index, period, flow_length = self.get_link(a)
         result = self.network.occupy_edge_slot(edge_index=edge_index, flow_length=flow_length, action=a,
                                       flow_end_slot=self.slot_state[a])
@@ -230,6 +235,46 @@ class Env:
                 np_b[i] = min_tf
         return np_w, np_b
 
+    def get_flow_id(self, action):
+        '''
+        通过输出的动作aciton，找到指定的启发式的排序方法，得到要调度的流id
+        :param action: 
+        :return: 
+        '''
+        if action == 0:
+            return SPT(self.tt_schedule_matrix)
+        elif action == 1:
+            return LPT(self.tt_schedule_matrix)
+        elif action == 2:
+            return LWKR(self.tt_schedule_matrix)
+        elif action == 3:
+            return MWKR(self.tt_schedule_matrix)
+        elif action == 4:
+            return SPT_TWK_rate(self.tt_schedule_matrix, self.origin_tt_schedule_matrix)
+        elif action == 5:
+            return LPT_TWK_rate(self.tt_schedule_matrix, self.origin_tt_schedule_matrix)
+        elif action == 6:
+            return SPT_TWKR_rate(self.tt_schedule_matrix)
+        elif action == 7:
+            return LPT_TWKR_rate(self.tt_schedule_matrix)
+        elif action == 8:
+            return SPT_TWK_muti(self.tt_schedule_matrix,self.origin_tt_schedule_matrix)
+        elif action == 9:
+            return LPT_TWK_muti(self.tt_schedule_matrix,self.origin_tt_schedule_matrix)
+        elif action == 10:
+            return SPT_TWKR_muti(self.tt_schedule_matrix)
+        elif action == 11:
+            return LPT_TWKR_muti(self.tt_schedule_matrix)
+        elif action == 12:
+            return LSO(self.tt_schedule_matrix)
+        elif action == 13:
+            return SSO(self.tt_schedule_matrix)
+        elif action == 14:
+            return SRM(self.tt_schedule_matrix, self.tt_route_matrix)
+        elif action == 15:
+            return LRM(self.tt_schedule_matrix, self.tt_route_matrix)
+        else:
+            return random.randint(0, self.network.tt_num-1)
 
 if __name__ == '__main__':
     simplenetwork = SimpleNetwork()

@@ -263,7 +263,7 @@ def SPT_TWKR_muti(tt_schedule_matrix):
                 result_tt[i] = tt_schedule_matrix[i][j]
                 break
     sum_temp = np.sum(tt_schedule_matrix, axis=1)
-    result = sum_temp*result_tt
+    result = (sum_temp+1)*result_tt
     min_idexs = np.where(result == np.min(result))
     if min_idexs[0].size == 1:
         return int(min_idexs[0][0])
@@ -298,7 +298,7 @@ def LSO(tt_schedule_matrix):
     :param tt_schedule_matrix: 
     :return: 
     '''
-    result_tt = np.zeros(tt_schedule_matrix.shape[0])
+    result_tt = np.ones(tt_schedule_matrix.shape[0])
     for i in range(tt_schedule_matrix.shape[0]):
         for j in range(tt_schedule_matrix.shape[1]):
             if tt_schedule_matrix[i][j] != 0:
@@ -319,7 +319,7 @@ def SSO(tt_schedule_matrix):
     :param tt_schedule_matrix: 
     :return: 
     '''
-    result_tt = np.zeros(tt_schedule_matrix.shape[0])
+    result_tt = np.full(tt_schedule_matrix.shape[0], fill_value=-0.5)
     for i in range(tt_schedule_matrix.shape[0]):
         for j in range(tt_schedule_matrix.shape[1]):
             if tt_schedule_matrix[i][j] != 0:
@@ -328,7 +328,7 @@ def SSO(tt_schedule_matrix):
     sum_temp = np.sum(tt_schedule_matrix, axis=1)
     result = sum_temp - result_tt
     for i in range(len(result)):
-        if result[i] == 0:
+        if result[i] == 0.5:
             result[i] = 9999.
 
     min_idexs = np.where(result == np.min(result))
@@ -411,23 +411,46 @@ def LRM(tt_schedule_matrix, tt_route_matrix):
 
 
 if __name__ == '__main__':
-    tt_schedule_matrix = np.array([[64., 64.,  0.],
-                                    [ 0. ,51.,  0.],
-                                    [ 0.  ,0.,  0.],
-                                    [ 0. , 0.,  0.],
-                                    [35. ,35.,  0.],
-                                    [56. ,56., 56.],
-                                    [ 0. , 0.,  0.],
-                                    [44. ,44., 44.],
-                                    [58. ,58., 58.],
-                                    [43. ,43., 43.],
-                                    [ 0. , 0., 36.],
-                                    [ 0. , 0.,  0.],
-                                    [ 0. , 0.,  0.],
-                                    [35. ,35.,  0.],
-                                    [ 0.  ,0.,  0.],
-                                    [ 0. , 0.,  0.],
-                                    [ 0. , 0.,  0.]])
+    # tt_schedule_matrix = np.array([[64., 64.,  0.],
+    #                                 [ 51.,51.,  0.],
+    #                                 [ 42. ,42., 42.],
+    #                                 [ 49. ,49., 49.],
+    #                                 [35. ,35.,  0.],
+    #                                 [56. ,56., 56.],
+    #                                 [ 35. , 35.,  35.],
+    #                                 [44. ,44., 44.],
+    #                                 [58. ,58., 58.],
+    #                                 [43. ,43., 43.],
+    #                                 [ 36. ,36., 36.],
+    #                                 [ 0. , 64., 64.],
+    #                                 [ 59. , 0.,  0.],
+    #                                 [35. ,35.,  0.],
+    #                                 [ 33.,33.,  0.],
+    #                                 [ 0. , 0.,  0.],
+    #                                 [ 58. , 58., 58.],
+    #                                 [ 48. , 48., 48.],
+    #                                 [ 33. , 33., 33.],
+    #                                 [ 51. , 51., 51.],])
+    tt_schedule_matrix = np.array([[0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 49.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 43.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.],
+                                   [0., 0., 0.], ])
     tt_route_matrix = np.array([[ 0., 11.,  0.],
                                 [ 2.,  9.,  0.],
                                 [ 5.,17.,  8.],
@@ -444,8 +467,12 @@ if __name__ == '__main__':
                                 [ 7., 17.,  0.],
                                 [ 0.,  9.,  0.],
                                 [ 3.,  0.,  0.],
-                                [ 6., 17., 10.]])
+                                [ 6., 17., 10.],
+                                [ 6., 17., 9.],
+                                [ 2., 12., 16.],
+                                [ 0., 12., 14.],])
 
-    print(LRM(tt_schedule_matrix,tt_route_matrix))
+    # print(LRM(tt_schedule_matrix,tt_route_matrix))
+    print(LSO(tt_schedule_matrix))
 
 

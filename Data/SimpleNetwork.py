@@ -313,7 +313,7 @@ class SimpleNetwork:
         result = edge.occupy_slot_fast(action=action, flow_length=flow_length, flow_end_slot=flow_end_slot)
         return result
 
-    def save_schedule_result(self, i):
+    def save_schedule_result(self, file_name, i):
         '''
         完成调度后实现调度结果的保存和实现
         :return: 
@@ -321,10 +321,10 @@ class SimpleNetwork:
         schedule_result = {}
         for edge in self.edges.values():
             schedule_result[edge.id] = edge.time_slot_state
-        if not os.path.exists('../result/schedule_result/'):
-            os.makedirs('../result/schedule_result/')
+        if not os.path.exists('../result/{}/'.format(file_name)):
+            os.makedirs('../result/{}/'.format(file_name))
         if schedule_result:
-            json.dump(schedule_result, open('../result/schedule_result/schedule_result_{}.json'.format(i), "w"), indent=4)
+            json.dump(schedule_result, open('../result/{}/schedule_result_{}.json'.format(file_name, i), "w"), indent=4)
 
 
 

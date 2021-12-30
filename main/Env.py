@@ -26,6 +26,8 @@ class Env:
         #tt流总的处理时间
         self.all_length = 0
 
+        self.record = []
+
 
     def reset(self):
         '''
@@ -50,7 +52,8 @@ class Env:
 
         # tt流总的处理时间
         self.all_length = np.sum(self.tt_schedule_matrix)
-
+        self.pre_util = 0
+        self.record = []
         state = self.output_state()
         print('reset success!!!')
         return state
@@ -128,7 +131,7 @@ class Env:
 
         elif result == 'fail':
             new_state = self.output_state()
-            r = -1
+            r = -10
             done = False
             return new_state, r, done
 
@@ -174,6 +177,7 @@ class Env:
         cur_util = self.all_length/(self.network.edge_num * c_max_cur)
         r = cur_util - self.pre_util
         self.pre_util = cur_util
+        self.record.append(cur_util)
         return r
 
 

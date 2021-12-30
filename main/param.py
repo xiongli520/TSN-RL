@@ -20,5 +20,7 @@ parser.add_argument('--learning_rate', type=float, default=0.001, help='learning
 parser.add_argument('--gamma', type=float, default=0.98, help='gamma')
 
 parser.add_argument('--action_size', type=int, default=16, help='action size')
+parser.add_argument('--buffer_limit', type=int, default=20000, help='buffer limit')
+parser.add_argument('--batch_size', type=int, default=32, help='batch size')
 
 args = parser.parse_args()

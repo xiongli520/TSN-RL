@@ -6,6 +6,23 @@ class Node:
         self.isSourceNode = 0
         self.isSwitchNode = 0
         self.isDestinationNode = 0
+        self.connection_list = []
+
+    #     为了路由设置的参数
+        self.was_visited = False
+        self.all_visited_list = []
+
+    def set_all_visited_list(self, all_visited_list):
+        self.all_visited_list = all_visited_list
+
+    def set_was_visited(self, was_visited):
+        self.was_visited = was_visited
+
+    def set_visited(self, j):
+        if j>len(self.all_visited_list):
+            print('node set visited error, out of range...')
+        else:
+            self.all_visited_list[j] = 1
 
     def set_source_node(self):
         self.isSourceNode = 1

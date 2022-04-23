@@ -70,16 +70,27 @@ class Graph:
 
 if __name__ == '__main__':
     # content = []
-    fo = open("./network_info.txt", "r")
-    node_num = int(fo.readline())
+    fo_network_info = open("./network_info.txt", "r")
+    fo_node_info = open("./node_info.txt", "r")
+    node_num = int(fo_network_info.readline())
     # print(type(node_num))
     # print(node_num)
-    edge_num = int(fo.readline())
+    node_num_ = int(fo_node_info.readline())
+    edge_num = int(fo_network_info.readline())
     # print(edge_num)
     graph = Graph(node_num)
     for i in range(edge_num):
-        ss = fo.readline()
+        ss = fo_network_info.readline()
         node1_index, node2_index = map(int, ss.split())
         graph.add_edge(node1_index, node2_index)
+    for i in range(node_num_):
+        index, is_end_node, is_switch_node = map(int, fo_node_info.readline().split())
+        if is_end_node == 1:
+            graph.nodes[index].set_end_node()
+        if is_switch_node == 1:
+            graph.nodes[index].set_switch_node()
+
+    fo_node_info.close()
+    fo_network_info.close()
     print(graph.get_all_connection_list())
     print(graph.adj_mat)

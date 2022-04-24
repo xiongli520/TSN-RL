@@ -34,8 +34,9 @@ class Flow_Generator:
 
 
     def generator_flow(self):
+        rt = Route(self.graph)
         for i in range(self.tt_num):
-            self.tt_flow[str(i)] = {}
+            self.tt_flows[str(i)] = {}
             src = random.choice(self.end_node_index_list)
             des = random.choice(self.end_node_index_list)
             while src == des:
@@ -43,14 +44,15 @@ class Flow_Generator:
             cycle = random.choice(self.tt_flow_cycle_option)
             delay = random.randint(self.delay_min, self.delay_max)
             pkt_len = random.randint(self.pkt_len_min, self.pkt_len_max)
+            rt.get_path(src, des)
+            self.tt_flows[str(i)]['src'] = src
+            self.tt_flows[str(i)]['des'] = des
+            self.tt_flows[str(i)]['cycle'] = cycle
+            self.tt_flows[str(i)]['delay'] = delay
+            self.tt_flows[str(i)]['pkt_len'] = pkt_len
+            self.tt_flows[str(i)]['path'] = rt.paths
 
-            self.tt_flow[str(i)]['src'] = src
-            self.tt_flow[str(i)]['des'] = des
-            self.tt_flow[str(i)]['cycle'] = cycle
-            self.tt_flow[str(i)]['delay'] = delay
-            self.tt_flow[str(i)]['pkt_len'] = pkt_len
-
-    def writeToFile(self, fileName):
+    def write_to_file(self, fileName):
         '''
         将网络结构信息写入文件中保存
         :param fileName:
@@ -62,14 +64,14 @@ class Flow_Generator:
             # np.save('../resource/{}/node_mat.npy'.format(fileName), self.node_mat)
         # if self.node_info:
         #     json.dump(self.node_info, open('../resource/{}/node_info.json'.format(fileName), "w"), indent=4)
-        if self.tt_flow:
-            json.dump(self.tt_flow, open('../resource/{}/tt_flow.json'.format(fileName), "w"), indent=4)
+        if self.tt_flows:
+            json.dump(self.tt_flows, open('./resource/{}/tt_flows.json'.format(fileName), "w"), indent=4)
         # if self.paths_table:
         #     json.dump(self.paths_table, open('../resource/{}/paths_table.json'.format(fileName), "w"), indent=4)
         # if self.edges_info:
         #     json.dump(self.edges_info, open('../resource/{}/edges_info.json'.format(fileName), "w"), indent=4)
 
-    def readFromFile(self, fileName):
+    def read_from_file(self, fileName):
         '''
         从文件中加载网络结构信息
         :param fileName:
@@ -77,19 +79,18 @@ class Flow_Generator:
         '''
         # self.node_mat = np.load('../resource/{}/node_mat.npy'.format(fileName))
         # self.node_info = json.load(open('../resource/{}/node_info.json'.format(fileName)))
-        self.tt_flow = json.load(open('../resource/{}/tt_flow.json'.format(fileName)))
+        self.tt_flows = json.load(open('./resource/{}/tt_flows.json'.format(fileName)))
         # self.paths_table = json.load(open('../resource/{}/paths_table.json'.format(fileName)))
         # self.edges_info = json.load(open('data/{}/edges_info.json'.format(fileName)))
 
+
+
 if __name__ == '__main__':
-    fo_network_info = open("./network_info.txt", "r")
-    fo_node_info = open("./node_info.txt", "r")
+    fo_network_info = open("./resource/info/network_info.txt", "r")
+    fo_node_info = open("./resource/info/node_info.txt", "r")
     node_num = int(fo_network_info.readline())
-    # print(type(node_num))
-    # print(node_num)
     node_num_ = int(fo_node_info.readline())
     edge_num = int(fo_network_info.readline())
-    # print(edge_num)
     graph = Graph(node_num)
     for i in range(edge_num):
         ss = fo_network_info.readline()
@@ -104,7 +105,9 @@ if __name__ == '__main__':
 
     fo_node_info.close()
     fo_network_info.close()
-    print(graph.get_all_connection_list())
-    print(graph.adj_mat)
-    rt = Route(graph)
-    print(rt.get_path(0, 7))
+
+    flow_generator = Flow_Generator(graph)
+    flow_generator.generator_flow()
+    flow_generator.write_to_file("info")
+
+

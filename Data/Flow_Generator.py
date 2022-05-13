@@ -32,7 +32,7 @@ class Flow_Generator:
         # self.pkt_len_max = args.pkt_len_max
         self.tt_flows = {}
 
-        if os.path.exists('./resource/info/tt_flows.json'):
+        if os.path.exists('/Data/resource/unprocess_flow/tt_flows.json'):
            self.read_from_file()
         else:
             self.generator_flow()
@@ -72,14 +72,14 @@ class Flow_Generator:
         :param fileName:
         :return:
         '''
-        if not os.path.exists('./resource/info'):
-            os.makedirs('./resource/info')
+        if not os.path.exists('D:\\MyRL\\TSN-RL\\Data\\resource\\info'):
+            os.makedirs('D:\\MyRL\\TSN-RL\\Data\\resource\\info')
         # if self.node_mat is not None:
             # np.save('../resource/{}/node_mat.npy'.format(fileName), self.node_mat)
         # if self.node_info:
         #     json.dump(self.node_info, open('../resource/{}/node_info.json'.format(fileName), "w"), indent=4)
         if self.tt_flows:
-            json.dump(self.tt_flows, open('./resource/info/tt_flows.json', "w"), indent=4)
+            json.dump(self.tt_flows, open('/Data/resource/unprocess_flow/tt_flows.json', "w"), indent=4)
         # if self.paths_table:
         #     json.dump(self.paths_table, open('../resource/{}/paths_table.json'.format(fileName), "w"), indent=4)
         # if self.edges_info:
@@ -93,10 +93,18 @@ class Flow_Generator:
         '''
         # self.node_mat = np.load('../resource/{}/node_mat.npy'.format(fileName))
         # self.node_info = json.load(open('../resource/{}/node_info.json'.format(fileName)))
-        self.tt_flows = json.load(open('./resource/info/tt_flows.json'))
+        self.tt_flows = json.load(open('/Data/resource/unprocess_flow/tt_flows.json'))
         # self.paths_table = json.load(open('../resource/{}/paths_table.json'.format(fileName)))
         # self.edges_info = json.load(open('data/{}/edges_info.json'.format(fileName)))
 
+    def random_path(self):
+        '''
+        随机重置选择的路径
+        :return:
+        '''
+        for i in range(self.tt_num):
+            path_id = random.randint(0, len(self.tt_flows[str(i)]['paths'] - 1))
+            self.tt_flows[str(i)]['path_id'] = path_id
 
 
 if __name__ == '__main__':

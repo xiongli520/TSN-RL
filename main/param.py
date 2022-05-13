@@ -13,8 +13,11 @@ parser.add_argument('--node_num', type=int, default=10, help='node number')
 parser.add_argument('--end_num', type=int, default=8, help='end node number')
 parser.add_argument('--switch_num', type=int, default=2, help='switch node number')
 
-parser.add_argument('--pkt_len_min', type=int, default=20, help='pkt length min')
-parser.add_argument('--pkt_len_max', type=int, default=50, help='pkt length max')
+parser.add_argument('--pkt_len_min', type=int, default=72, help='pkt length min')
+parser.add_argument('--pkt_len_max', type=int, default=1526, help='pkt length max')
+parser.add_argument('--delay_min', type=int, default=2048, help='pkt length min')
+parser.add_argument('--delay_max', type=int, default=4096, help='pkt length max')
+
 
 parser.add_argument('--learning_rate', type=float, default=0.001, help='learning rate')
 parser.add_argument('--gamma', type=float, default=0.98, help='gamma')

@@ -8,10 +8,10 @@ class DoC_Node:
         self.connection_weight_list = []
 
 class DoC_Graph:
-    def __init__(self, fg):
-        self.fg = fg
-        self.tt_num = fg.tt_num
-        self.tt_flows = fg.tt_flows
+    def __init__(self, tt_flows):
+        # self.fg = fg
+        self.tt_num = len(tt_flows)
+        self.tt_flows = tt_flows
         self.doc_nodes = []
         for i in range(self.tt_num):
             node = DoC_Node(i)
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     fo_network_info.close()
 
     flow_generator = Flow_Generator(graph)
-    doc_graph = DoC_Graph(flow_generator)
+    doc_graph = DoC_Graph(flow_generator.tt_flows)
     for node in doc_graph.doc_nodes:
         print(node.connection_index_list)
         print(node.connection_weight_list)

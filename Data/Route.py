@@ -136,7 +136,7 @@ if __name__ == '__main__':
     #
     # distance, path = dijkstra(graph_list, 2)
     # print(distance, '\n', path)
-    fo = open("./network_info.txt", "r")
+    fo = open("resource/info/network_info.txt", "r")
     node_num = int(fo.readline())
     # print(type(node_num))
     # print(node_num)

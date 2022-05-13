@@ -65,7 +65,7 @@ class Edge:
             return 'success'
         else:
             self.count+=1
-            print('edge_id{},第{}次 occupy_edge_slot ERROR!!!'.format(self.id,self.count))
+            print('edge_id{},第{}次 occupy_edge_slot ERROR!!!'.format(self.id, self.count))
             return 'fail'
 
     def record_occupy_fast(self, flow_length, action, flow_end_slot):

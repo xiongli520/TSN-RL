@@ -1,5 +1,7 @@
 from Data.Node import *
-
+from Data.Edge import *
+import os
+import json
 class Graph:
     def __init__(self, node_num):
         self.node_num = node_num
@@ -8,6 +10,8 @@ class Graph:
         self.adj = []
         self.adj_mat = []
         self.nodes = []
+        self.edges_info = {}
+        self.edges = []
         for i in range(self.node_num):
             node_i = Node(i, 10)
             self.nodes.append(node_i)
@@ -24,8 +28,6 @@ class Graph:
             for j in range(self.node_num):
                 tmp.append(0)
             self.nodes[i].set_all_visited_list(tmp)
-
-
 
     def add_edge(self, node1_index, node2_index):
         '''
@@ -68,10 +70,31 @@ class Graph:
             print('超过节点索引范围')
             return [-1]
 
+    def get_edges(self):
+        if len(self.adj_mat)>0 :
+            index = 0
+            for i in range(len(self.adj_mat)):
+                for j in range(len(self.adj_mat)):
+                    if self.adj_mat[i][j] == 1:
+                        self.edges[index] = Edge(index=index, start_node=i, end_node=j)
+                        self.edges_info[str(index)] = {}
+                        self.edges_info[str(index)]['src'] = i
+                        self.edges_info[str(index)]['des'] = j
+                        index+=1
+            self.edge_num = index
+
+        if not os.path.exists('D:\\MyRL\\TSN-RL\\Data\\resource\\info'):
+            os.makedirs('D:\\MyRL\\TSN-RL\\Data\\resource\\info')
+
+        if self.edges_info:
+            json.dump(self.edges_info, open('D:\\MyRL\\TSN-RL\\Data\\resource\\info\\edges_info.json', "w"), indent=4)
+        else:
+            print('Havent generated node_mat')
+
 if __name__ == '__main__':
     # content = []
-    fo_network_info = open("./network_info.txt", "r")
-    fo_node_info = open("./node_info.txt", "r")
+    fo_network_info = open("resource/info/network_info.txt", "r")
+    fo_node_info = open("resource/info/node_info.txt", "r")
     node_num = int(fo_network_info.readline())
     # print(type(node_num))
     # print(node_num)

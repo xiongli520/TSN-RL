@@ -68,7 +68,10 @@ class Stream_Partition:
     def cal_nCGC(self, groups):
         nCGC = 0
         for i in range(self.group_num):
-            nCGC += (self.cgc/self.cal_assoc(groups[i]))
+            tmp = self.cal_assoc(groups[i])
+            if tmp==0:
+                return float('inf')
+            nCGC += (self.cgc/tmp)
 
         return nCGC
 
@@ -162,6 +165,6 @@ if __name__ == '__main__':
     fo_network_info.close()
 
     flow_generator = Flow_Generator(graph)
-    doc_graph = DoC_Graph(flow_generator)
+    doc_graph = DoC_Graph(flow_generator.tt_flows)
     stream_partition = Stream_Partition(doc_graph, 4)
 
